@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | IEEE RAS NIT Silchar</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+
+    <style>
+:root {
+    --purple: #5A176E;
+    --purple-dark: #451255;
+    --crimson: #A5003B;
+    --gold: #D7A928;
+    --ink: #241F23;
+    --muted: #6B6368;
+    --line: #E6DEE3;
+    --cream: #FCFAF7;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; }
+
+body {
+    min-height: 100vh;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: Inter, "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---- background ---- */
+
+.auth-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+        radial-gradient(circle at 12% 18%, rgba(215,169,40,0.15), transparent 34%),
+        radial-gradient(circle at 88% 84%, rgba(90,23,110,0.13), transparent 40%),
+        var(--cream);
+}
+
+#authNet {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ---- layout ---- */
+
+.auth-page {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 88px 20px 40px;
+}
+
+.auth-back {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #FFFFFF;
+    color: var(--ink);
+    font-size: 0.86rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 1px 2px rgba(36,31,35,0.05);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.auth-back:hover {
+    border-color: var(--purple);
+    color: var(--purple);
+    box-shadow: 0 8px 20px rgba(90,23,110,0.10);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    padding: 36px;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: #FFFFFF;
+    box-shadow: 0 30px 70px rgba(90,23,110,0.10);
+}
+
+.auth-card.wide { max-width: 520px; }
+
+.auth-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.auth-logo {
+    position: relative;
+    flex: none;
+    width: 90px;
+    height: 90px;
+    display: grid;
+    place-items: center;
+    
+    border-radius: 13px;
+    background: #FFFFFF;
+    color: var(--purple);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+.auth-logo img {
+    position: absolute;
+    inset: 1px;
+    width: calc(130%);
+    height: calc(100%);
+    object-fit: contain;
+    background: #FFFFFF;
+}
+
+.auth-brand-name { margin: 0; font-size: 0.95rem; font-weight: 700; line-height: 1.25; }
+.auth-brand-sub  { margin: 2px 0 0; color: var(--muted); font-size: 0.78rem; }
+
+.auth-kicker {
+    margin: 0 0 8px;
+    color: var(--crimson);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.auth-title {
+    margin: 0 0 6px;
+    font-size: 1.95rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.auth-sub {
+    margin: 0 0 24px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* ---- alerts ---- */
+
+.auth-alert {
+    margin-bottom: 20px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
+
+.auth-alert.error   { border: 1px solid #F3C5C5; background: #FDF1F1; color: #A12020; }
+.auth-alert.success { border: 1px solid #BFE3CC; background: #EFF9F2; color: #1E7A45; }
+
+/* ---- form ---- */
+
+.auth-field { margin-bottom: 16px; }
+
+.auth-label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
+.auth-input {
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    background: #FFFFFF;
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-input::placeholder { color: #A39BA1; }
+
+.auth-input:hover { border-color: #CFC5CC; }
+
+.auth-input:focus {
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 4px rgba(90,23,110,0.12);
+}
+
+.auth-input.invalid { border-color: var(--crimson); }
+
+.auth-pw { position: relative; }
+.auth-pw .auth-input { padding-right: 64px; }
+
+.auth-eye {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    height: 36px;
+    padding: 0 12px;
+    transform: translateY(-50%);
+    border: 0;
+    border-radius: 8px;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.auth-eye:hover { color: var(--purple); background: #F4EDF7; }
+
+.auth-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.auth-hint { margin: 6px 0 0; color: var(--muted); font-size: 0.78rem; }
+
+.auth-err {
+    display: none;
+    margin: 6px 0 0;
+    color: var(--crimson);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.auth-field.bad .auth-err { display: block; }
+
+.auth-btn {
+    width: 100%;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--purple);
+    border-radius: 12px;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.auth-btn:active { transform: scale(0.99); }
+
+.auth-btn.primary { margin-top: 8px; background: var(--purple); color: #FFFFFF; }
+.auth-btn.primary:hover { background: var(--purple-dark); border-color: var(--purple-dark); }
+
+.auth-btn.secondary { background: #FFFFFF; color: var(--purple); }
+.auth-btn.secondary:hover { background: #F4EDF7; }
+
+.auth-btn:disabled { opacity: 0.7; cursor: progress; }
+
+.auth-back:focus-visible,
+.auth-btn:focus-visible,
+.auth-eye:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+}
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 24px 0;
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+}
+
+.auth-foot {
+    margin: 22px 0 0;
+    max-width: 440px;
+    color: var(--muted);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+@media (max-width: 520px) {
+
+    .auth-page { padding: 80px 14px 30px; }
+    .auth-back { top: 18px; left: 14px; }
+    .auth-card { padding: 26px 22px; border-radius: 20px; }
+    .auth-row { grid-template-columns: 1fr; gap: 0; }
+    .auth-title { font-size: 1.65rem; }
+}
+</style>
+</head>
+
+<body>
+
+    <div class="auth-bg"></div>
+    <canvas id="authNet" aria-hidden="true"></canvas>
+
+    <div class="auth-page">
+
+        <!-- Back to Home -->
+        <a href="/" class="auth-back">
+            <span aria-hidden="true">&larr;</span>
+            Back to Home
+        </a>
+
+        <main class="auth-card">
+
+            <div class="auth-brand">
+                <div class="auth-logo">
+                    RAS
+                    <img 
+                    src="/static/images/logo2.webp" 
+                    alt="IEEE Robotics and Automation Society logo" 
+                    onerror="this.remove()"
+                    class="w-20 h-20 object-contain"
+                    >
+                </div>
+                <div>
+                    <p class="auth-brand-name">IEEE RAS</p>
+                    <p class="auth-brand-sub">NIT Silchar Student Chapter</p>
+                </div>
+            </div>
+
+            <p class="auth-kicker">Member Portal</p>
+            <h1 class="auth-title">Welcome back</h1>
+            <p class="auth-sub">Sign in to access your IEEE RAS account.</p>
+
+            {% if request.query_params.get("error") %}
+            <div class="auth-alert error" role="alert">
+                {{ request.query_params.get("error") }}
+            </div>
+            {% endif %}
+
+            {% if request.query_params.get("registered") %}
+            <div class="auth-alert success" role="status">
+                Registration successful. You can now sign in.
+            </div>
+            {% endif %}
+
+            <form action="/api/auth/login" method="POST" class="auth-form">
+
+                <div class="auth-field">
+                    <label for="email" class="auth-label">Email</label>
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        autocomplete="email"
+                        required
+                        placeholder="you@example.com"
+                        class="auth-input"
+                    >
+                </div>
+
+                <div class="auth-field">
+                    <label for="password" class="auth-label">Password</label>
+                    <div class="auth-pw">
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            autocomplete="current-password"
+                            required
+                            placeholder="Enter your password"
+                            class="auth-input"
+                        >
+                        <button type="button" class="auth-eye" data-for="password" aria-label="Show password">Show</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="auth-btn primary" data-busy="Signing in...">
+                    Sign in
+                </button>
+
+            </form>
+
+            <div class="auth-divider">New to IEEE RAS?</div>
+
+            <a href="/register" class="auth-btn secondary">Create an account</a>
+
+        </main>
+
+        <p class="auth-foot">
+            IEEE Robotics and Automation Society<br>
+            NIT Silchar Student Chapter
+        </p>
+
+    </div>
+
+    <script>
+(function () {
+
+    /* ---------- node network background ---------- */
+
+    const canvas = document.getElementById("authNet");
+
+    if (canvas) {
+
+        const ctx = canvas.getContext("2d");
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        const LINK = 140;
+        const MOUSE_LINK = 180;
+
+        let W = 0, H = 0;
+        let nodes = [];
+        let packets = [];
+        let lastPacket = 0;
+        let raf = 0;
+        let running = false;
+
+        const pointer = { x: -9999, y: -9999 };
+
+        function resize() {
+
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+            W = window.innerWidth;
+            H = window.innerHeight;
+
+            canvas.width = W * dpr;
+            canvas.height = H * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            const count = Math.min(90, Math.round((W * H) / 15000));
+
+            nodes = Array.from({ length: count }, () => ({
+                x: Math.random() * W,
+                y: Math.random() * H,
+                vx: (Math.random() - 0.5) * 0.35,
+                vy: (Math.random() - 0.5) * 0.35,
+                r: Math.random() * 1.6 + 0.8,
+                gold: Math.random() < 0.22
+            }));
+
+            packets = [];
+
+            if (!running) draw(0);
+        }
+
+        function draw(time) {
+
+            ctx.clearRect(0, 0, W, H);
+
+            if (!reduce) {
+
+                for (const n of nodes) {
+
+                    n.x += n.vx;
+                    n.y += n.vy;
+
+                    if (n.x < 0 || n.x > W) n.vx *= -1;
+                    if (n.y < 0 || n.y > H) n.vy *= -1;
+
+                    const dx = n.x - pointer.x;
+                    const dy = n.y - pointer.y;
+                    const d = Math.hypot(dx, dy);
+
+                    if (d < 110 && d > 0) {
+                        n.x += (dx / d) * 0.9;
+                        n.y += (dy / d) * 0.9;
+                    }
+                }
+            }
+
+            ctx.lineWidth = 1;
+
+            for (let i = 0; i < nodes.length; i++) {
+
+                const a = nodes[i];
+
+                for (let j = i + 1; j < nodes.length; j++) {
+
+                    const b = nodes[j];
+                    const d = Math.hypot(a.x - b.x, a.y - b.y);
+
+                    if (d < LINK) {
+
+                        ctx.strokeStyle = "rgba(90,23,110," + ((1 - d / LINK) * 0.24) + ")";
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.stroke();
+                    }
+                }
+
+                const md = Math.hypot(a.x - pointer.x, a.y - pointer.y);
+
+                if (md < MOUSE_LINK) {
+
+                    ctx.strokeStyle = "rgba(215,169,40," + ((1 - md / MOUSE_LINK) * 0.65) + ")";
+                    ctx.lineWidth = 1.2;
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(pointer.x, pointer.y);
+                    ctx.stroke();
+                    ctx.lineWidth = 1;
+                }
+            }
+
+            for (const n of nodes) {
+
+                ctx.fillStyle = n.gold ? "rgba(215,169,40,0.85)" : "rgba(90,23,110,0.5)";
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            if (!reduce) {
+
+                if (time - lastPacket > 900 && nodes.length > 1) {
+
+                    lastPacket = time;
+
+                    const a = nodes[Math.floor(Math.random() * nodes.length)];
+                    const near = nodes.filter(n => n !== a && Math.hypot(n.x - a.x, n.y - a.y) < LINK);
+
+                    if (near.length) {
+                        packets.push({ a: a, b: near[Math.floor(Math.random() * near.length)], t: 0 });
+                    }
+                }
+
+                packets = packets.filter(p => p.t < 1);
+
+                ctx.shadowColor = "rgba(215,169,40,0.9)";
+                ctx.shadowBlur = 8;
+                ctx.fillStyle = "#D7A928";
+
+                for (const p of packets) {
+
+                    p.t += 0.02;
+
+                    ctx.beginPath();
+                    ctx.arc(
+                        p.a.x + (p.b.x - p.a.x) * p.t,
+                        p.a.y + (p.b.y - p.a.y) * p.t,
+                        2.4, 0, Math.PI * 2
+                    );
+                    ctx.fill();
+                }
+
+                ctx.shadowBlur = 0;
+            }
+
+            if (running) raf = requestAnimationFrame(draw);
+        }
+
+        function start() {
+            if (running || reduce) return;
+            running = true;
+            raf = requestAnimationFrame(draw);
+        }
+
+        function stop() {
+            running = false;
+            cancelAnimationFrame(raf);
+        }
+
+        window.addEventListener("pointermove", function (e) { pointer.x = e.clientX; pointer.y = e.clientY; });
+        document.addEventListener("mouseleave", function () { pointer.x = -9999; pointer.y = -9999; });
+        window.addEventListener("resize", resize);
+        document.addEventListener("visibilitychange", function () { document.hidden ? stop() : start(); });
+
+        resize();
+        start();
+    }
+
+    /* ---------- show / hide password ---------- */
+
+    document.querySelectorAll(".auth-eye").forEach(function (btn) {
+
+        btn.addEventListener("click", function () {
+
+            const input = document.getElementById(btn.dataset.for);
+            const show = input.type === "password";
+
+            input.type = show ? "text" : "password";
+            btn.textContent = show ? "Hide" : "Show";
+            btn.setAttribute("aria-label", (show ? "Hide" : "Show") + " password");
+        });
+    });
+
+    /* ---------- submit state ---------- */
+
+    const form = document.querySelector("form.auth-form");
+
+    if (form) {
+
+        const submitBtn = form.querySelector("button[type=submit]");
+        const idleText = submitBtn.textContent.trim();
+        const busyText = submitBtn.dataset.busy || "Please wait...";
+
+        const pw = document.getElementById("password");
+        const confirm = document.getElementById("confirm_password");
+
+        function checkMatch(showError) {
+
+            if (!pw || !confirm) return true;
+
+            const ok = confirm.value === pw.value;
+            const field = confirm.closest(".auth-field");
+
+            confirm.setCustomValidity(ok ? "" : "Passwords do not match.");
+
+            if (field) field.classList.toggle("bad", !ok && showError);
+            confirm.classList.toggle("invalid", !ok && showError);
+
+            return ok;
+        }
+
+        if (confirm) {
+            confirm.addEventListener("input", function () { checkMatch(confirm.value.length > 0); });
+            pw.addEventListener("input", function () { if (confirm.value) checkMatch(true); });
+        }
+
+        form.addEventListener("submit", function (e) {
+
+            if (!checkMatch(true)) {
+                e.preventDefault();
+                confirm.focus();
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = busyText;
+        });
+
+        /* coming back with the browser's back button */
+        window.addEventListener("pageshow", function (e) {
+            if (e.persisted) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = idleText;
+            }
+        });
+    }
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="IEEE Robotics and Automation Society - NIT Silchar"
+    >
+
+    <title>
+        {% block title %}
+        IEEE RAS NIT Silchar
+        {% endblock %}
+    </title>
+
+    <!-- Tailwind compiled CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', path='css/style.css') }}"
+    >
+
+    <!-- Google Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    {% block head %}{% endblock %}
+</head>
+
+<body class="bg-ras-cream text-ras-ink antialiased">
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header
+        id="navbar"
+        class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+    >
+
+        <div class="max-w-7xl mx-auto px-5 sm:px-8">
+
+            <nav
+                class="mt-4 rounded-2xl border border-ras-purple/10 bg-white/90 backdrop-blur-xl shadow-sm"
+            >
+
+                <div
+                    class="flex items-center justify-between px-5 py-3.5"
+                >
+
+                    <!-- LOGO -->
+
+                   
+                <a href="/" class="flex items-center gap-13 group">
+
+                    
+                    <div class="relative ml-10 flex h-11 w-11 shrink-0 items-center justify-center overflow-visible">
+                        <img
+                            src="/static/images/logo2.webp"
+                            alt="IEEE Robotics and Automation Society logo"
+                            class="h-30 w-30 max-w-none object-contain transition-transform duration-300"
+                        />
+                    </div>
+
+
+                    <div class="leading-tight">
+                        <p class="font-display font-bold text-ras-purple text-sm sm:text-base">
+                            IEEE RAS
+                        </p>
+
+                        <p class="text-[11px] sm:text-xs text-ras-brown">
+                            NIT Silchar
+                        </p>
+                    </div>
+
+                </a>
+
+
+
+                    <!-- DESKTOP NAVIGATION -->
+
+                    <div
+                        class="hidden md:flex items-center gap-8"
+                    >
+
+                        <a
+                            href="/"
+                            class="nav-link"
+                        >
+                            Home
+                        </a>
+
+                        <a
+                            href="/about"
+                            class="nav-link"
+                        >
+                            About
+                        </a>
+
+                        <a
+                            href="/domains"
+                            class="nav-link"
+                        >
+                            Domains
+                        </a>
+
+                        <a
+                            href="/projects"
+                            class="nav-link"
+                        >
+                            Projects
+                        </a>
+
+                        <a
+                            href="#community"
+                            class="nav-link"
+                        >
+                            Community
+                        </a>
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="hidden md:flex items-center gap-3">
+
+                        <a
+                            href="/login"
+                            class="px-4 py-2 rounded-xl text-sm font-semibold text-ras-purple hover:bg-ras-purple/5 transition"
+                        >
+                            Login
+                        </a>
+
+                        <a
+                            href="/register"
+                            class="ras-button"
+                        >
+                            Join RAS
+                        </a>
+
+                    </div>
+
+
+                    <!-- MOBILE MENU BUTTON -->
+
+                    <button
+                        id="mobile-menu-button"
+                        class="md:hidden flex h-10 w-10 items-center justify-center rounded-xl border border-ras-purple/10 text-ras-purple"
+                        aria-label="Open navigation"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"
+                            />
+                        </svg>
+
+                    </button>
+
+                </div>
+
+
+                <!-- MOBILE MENU -->
+
+                <div
+                    id="mobile-menu"
+                    class="hidden border-t border-ras-purple/10 px-5 pb-5 pt-4 md:hidden"
+                >
+
+                    <div class="flex flex-col gap-3">
+
+                        <a
+                            href="#home"
+                            class="mobile-nav-link"
+                        >
+                            Home
+                        </a>
+
+                        <a
+                            href="#about"
+                            class="mobile-nav-link"
+                        >
+                            About
+                        </a>
+
+                        <a
+                            href="#domains"
+                            class="mobile-nav-link"
+                        >
+                            Domains
+                        </a>
+
+                        <a
+                            href="#community"
+                            class="mobile-nav-link"
+                        >
+                            Community
+                        </a>
+
+                        <div class="h-px bg-ras-purple/10 my-2"></div>
+
+                        <a
+                            href="/login"
+                            class="mobile-nav-link"
+                        >
+                            Login
+                        </a>
+
+                        <a
+                            href="/register"
+                            class="ras-button text-center"
+                        >
+                            Join RAS
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer
+        class="border-t border-ras-purple/10 bg-white"
+    >
+
+        <div
+            class="max-w-7xl mx-auto px-5 sm:px-8 py-12"
+        >
+
+            <div
+                class="grid gap-10 md:grid-cols-4"
+            >
+
+                <!-- BRAND -->
+
+                <div class="md:col-span-2">
+
+                    <div class="flex items-center gap-3 mb-5">
+
+                        <div
+                            class="h-11 w-11 rounded-xl bg-ras-purple text-white flex items-center justify-center font-display font-bold"
+                        >
+                            RAS
+                        </div>
+
+                        <div>
+
+                            <p
+                                class="font-display font-bold text-ras-purple"
+                            >
+                                IEEE Robotics & Automation Society
+                            </p>
+
+                            <p
+                                class="text-sm text-ras-brown"
+                            >
+                                NIT Silchar Student Chapter
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <p
+                        class="max-w-md text-sm leading-7 text-ras-muted"
+                    >
+                        A student-driven community exploring robotics,
+                        automation, intelligent systems and emerging
+                        technologies at NIT Silchar.
+                    </p>
+
+                </div>
+
+
+                <!-- QUICK LINKS -->
+
+                <div>
+
+                    <h3 class="footer-heading">
+                        Explore
+                    </h3>
+
+                    <div class="flex flex-col gap-3">
+
+                        <a
+                            href="#about"
+                            class="footer-link"
+                        >
+                            About
+                        </a>
+
+                        <a
+                            href="#domains"
+                            class="footer-link"
+                        >
+                            Domains
+                        </a>
+
+                        <a
+                            href="/login"
+                            class="footer-link"
+                        >
+                            Login
+                        </a>
+
+                        <a
+                            href="/register"
+                            class="footer-link"
+                        >
+                            Register
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONTACT -->
+
+                <div>
+
+                    <h3 class="footer-heading">
+                        Contact
+                    </h3>
+
+                    <div class="space-y-3 text-sm text-ras-muted">
+
+                        <p>
+                            NIT Silchar
+                        </p>
+
+                        <p>
+                            Silchar, Assam
+                        </p>
+
+                        <a
+                            href="mailto:robotics.ieee@nits.ac.in"
+                            class="footer-link"
+                        >
+                            robotics.ieee@nits.ac.in
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="mt-10 pt-6 border-t border-ras-purple/10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+            >
+
+                <p class="text-xs text-ras-muted">
+                    © 2026 IEEE RAS NIT Silchar SBC.
+                    All rights reserved.
+                </p>
+
+                <p class="text-xs text-ras-brown">
+                    Advancing Technology for Humanity.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- JavaScript -->
+
+    <script src="{{ url_for('static', path='js/main.js') }}"></script>
+
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

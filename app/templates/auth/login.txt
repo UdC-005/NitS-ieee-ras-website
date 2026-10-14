@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | IEEE RAS NIT Silchar</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+</head>
+
+<body class="bg-ras-cream min-h-screen">
+
+    <!-- Back to Home -->
+    <div class="absolute top-6 left-6 z-50">
+        <a
+            href="/home"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-ras-border text-ras-crimson text-sm font-semibold shadow-sm hover:shadow-md hover:border-ras-purple transition-all duration-200"
+        >
+            <span class="text-lg">←</span>
+            Back to Home
+        </a>
+    </div>
+
+
+    <main class="min-h-screen flex items-center justify-center px-6 py-16">
+
+        <div class="w-full max-w-5xl grid lg:grid-cols-2 bg-white rounded-3xl overflow-hidden shadow-xl border border-ras-border">
+
+            <!-- Branding -->
+            <div class="hidden lg:flex relative bg-ras-purple p-12 text-white overflow-hidden flex-col justify-between">
+
+                <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-ras-crimson opacity-70"></div>
+
+                <div class="absolute -bottom-32 -left-20 w-80 h-80 rounded-full bg-ras-gold opacity-80"></div>
+
+                <div class="relative z-10">
+
+                    <div class="flex items-center gap-3 mb-10">
+
+                        <div class="w-12 h-12 rounded-xl bg-white text-ras-purple flex items-center justify-center font-black text-xl">
+                            RAS
+                        </div>
+
+                        <div>
+                            <p class="font-bold text-lg">IEEE RAS</p>
+                            <p class="text-sm text-white/70">NIT Silchar</p>
+                        </div>
+
+                    </div>
+
+                    <p class="uppercase tracking-[0.25em] text-xs text-ras-gold font-bold mb-4">
+                        Robotics & Automation
+                    </p>
+
+                    <h1 class="text-4xl xl:text-5xl font-bold leading-tight mb-6">
+                        Welcome<br>
+                        back.
+                    </h1>
+
+                    <p class="text-white/75 leading-relaxed max-w-sm">
+                        Continue exploring robotics, automation, research
+                        and technology with IEEE RAS NIT Silchar.
+                    </p>
+
+                </div>
+
+                <div class="relative z-10 text-sm text-white/60">
+                    IEEE Robotics and Automation Society<br>
+                    NIT Silchar Student Chapter
+                </div>
+
+            </div>
+
+
+            <!-- Login -->
+            <div class="p-8 sm:p-12 lg:p-14 flex items-center">
+
+                <div class="w-full max-w-md mx-auto">
+
+                    <div class="mb-8">
+
+                        <p class="text-sm font-semibold text-ras-crimson mb-2">
+                            MEMBER PORTAL
+                        </p>
+
+                        <h2 class="text-3xl font-bold text-ras-ink">
+                            Sign in
+                        </h2>
+
+                        <p class="text-ras-muted mt-2">
+                            Access your IEEE RAS account.
+                        </p>
+
+                    </div>
+
+
+                    {% if request.query_params.get("error") %}
+
+                    <div class="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                        {{ request.query_params.get("error") }}
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if request.query_params.get("registered") %}
+
+                    <div class="mb-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+                        Registration successful. You can now sign in.
+                    </div>
+
+                    {% endif %}
+
+
+                    <form action="/api/auth/login" method="POST" class="space-y-5">
+
+                        <div>
+                            <label for="email" class="block text-sm font-semibold text-ras-ink mb-2">
+                                Email
+                            </label>
+
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                autocomplete="email"
+                                required
+                                placeholder="you@example.com"
+                                class="ras-input"
+                            >
+                        </div>
+
+
+                        <div>
+                            <label for="password" class="block text-sm font-semibold text-ras-ink mb-2">
+                                Password
+                            </label>
+
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                autocomplete="current-password"
+                                required
+                                placeholder="Enter your password"
+                                class="ras-input"
+                            >
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="ras-button ras-button-primary w-full justify-center"
+                        >
+                            Sign In
+                        </button>
+
+                    </form>
+
+
+                    <div class="relative my-8">
+
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-ras-border"></div>
+                        </div>
+
+                        <div class="relative flex justify-center">
+                            <span class="bg-white px-4 text-sm text-ras-muted">
+                                New to IEEE RAS?
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="/register"
+                        class="ras-button ras-button-secondary w-full justify-center"
+                    >
+                        Create an Account
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

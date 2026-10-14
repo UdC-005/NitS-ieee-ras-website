@@ -1,0 +1,582 @@
+@import "tailwindcss";
+
+
+/* =========================================================
+   IEEE RAS NIT SILCHAR
+   LIGHT THEME
+========================================================= */
+
+@theme {
+
+    /* ---------- BRAND ---------- */
+
+    --color-ras-purple: #5A176E;
+    --color-ras-purple-dark: #431052;
+    --color-ras-purple-light: #EEE4F1;
+
+    --color-ras-crimson: #A5003B;
+    --color-ras-crimson-dark: #80002E;
+    --color-ras-crimson-light: #F7E5EB;
+
+    --color-ras-gold: #D7A928;
+    --color-ras-gold-dark: #A97D12;
+    --color-ras-gold-light: #FAF2D6;
+
+    --color-ras-brown: #795548;
+    --color-ras-brown-light: #F1EAE6;
+
+
+    /* ---------- NEUTRALS ---------- */
+
+    --color-ras-cream: #FCFAF7;
+    --color-ras-paper: #FFFFFF;
+
+    --color-ras-ink: #241F23;
+    --color-ras-muted: #6B6368;
+
+    --color-ras-border: #E9E2E5;
+
+
+    /* ---------- FONTS ---------- */
+
+    --font-display: "Space Grotesk", sans-serif;
+    --font-sans: "DM Sans", sans-serif;
+}
+
+
+/* =========================================================
+   BASE
+========================================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: #FCFAF7;
+    color: #241F23;
+
+    font-family: "DM Sans", sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+========================================================= */
+
+.font-display {
+    font-family: "Space Grotesk", sans-serif;
+}
+
+
+.section-label {
+    color: #A5003B;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+
+.section-title {
+    font-family: "Space Grotesk", sans-serif;
+
+    color: #241F23;
+
+    font-size: 2.5rem;
+    line-height: 1.1;
+
+    font-weight: 700;
+    letter-spacing: -0.035em;
+}
+
+@media (min-width: 640px) {
+
+    .section-title {
+        font-size: 3.25rem;
+    }
+
+}
+
+
+.card-title {
+    margin-top: 1.5rem;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    color: #241F23;
+
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+
+.card-text {
+    margin-top: 0.75rem;
+
+    color: #6B6368;
+
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav-link {
+    position: relative;
+
+    color: #6B6368;
+
+    font-size: 0.875rem;
+    font-weight: 600;
+
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #5A176E;
+}
+
+.nav-link::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: -7px;
+
+    height: 2px;
+
+    background: #A5003B;
+
+    transform: scaleX(0);
+
+    transform-origin: center;
+
+    transition: transform 0.2s ease;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+
+.mobile-nav-link {
+    display: block;
+
+    padding: 0.7rem 0.8rem;
+
+    border-radius: 0.75rem;
+
+    color: #6B6368;
+
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+.mobile-nav-link:hover {
+    background: #F5EFF7;
+    color: #5A176E;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.ras-button {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.72rem 1.2rem;
+
+    border-radius: 0.75rem;
+
+    background: #5A176E;
+
+    color: #FFFFFF;
+
+    font-size: 0.875rem;
+
+    font-weight: 700;
+
+    box-shadow: 0 8px 20px rgba(90, 23, 110, 0.16);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.ras-button:hover {
+
+    background: #431052;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 12px 26px rgba(90, 23, 110, 0.22);
+}
+
+
+.ras-button-outline {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.72rem 1.2rem;
+
+    border: 1px solid rgba(90, 23, 110, 0.2);
+
+    border-radius: 0.75rem;
+
+    background: #FFFFFF;
+
+    color: #5A176E;
+
+    font-size: 0.875rem;
+
+    font-weight: 700;
+
+    transition: all 0.2s ease;
+}
+
+.ras-button-outline:hover {
+
+    border-color: #5A176E;
+
+    background: #F5EFF7;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   HERO GRID
+========================================================= */
+
+.ras-grid {
+
+    background-image:
+        linear-gradient(
+            rgba(90, 23, 110, 0.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(90, 23, 110, 0.035) 1px,
+            transparent 1px
+        );
+
+    background-size: 42px 42px;
+
+    mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 90%
+    );
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.section-white {
+    background: #FFFFFF;
+}
+
+.section-soft {
+    background: #F7F3F0;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.ras-card {
+
+    border: 1px solid #E9E2E5;
+
+    border-radius: 1.25rem;
+
+    background: #FFFFFF;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.ras-card:hover {
+
+    transform: translateY(-5px);
+
+    border-color: rgba(90, 23, 110, 0.22);
+
+    box-shadow:
+        0 18px 50px rgba(36, 31, 35, 0.08);
+}
+
+
+/* =========================================================
+   ICON BOXES
+========================================================= */
+
+.icon-box {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    height: 3rem;
+    width: 3rem;
+
+    border-radius: 0.9rem;
+
+    font-size: 1.15rem;
+
+    font-weight: 700;
+}
+
+.icon-box.purple {
+
+    color: #5A176E;
+
+    background: #EEE4F1;
+}
+
+.icon-box.crimson {
+
+    color: #A5003B;
+
+    background: #F7E5EB;
+}
+
+.icon-box.gold {
+
+    color: #A97D12;
+
+    background: #FAF2D6;
+}
+
+.icon-box.brown {
+
+    color: #795548;
+
+    background: #F1EAE6;
+}
+
+
+/* =========================================================
+   DOMAIN CARDS
+========================================================= */
+
+.domain-card {
+
+    position: relative;
+
+    min-height: 280px;
+
+    padding: 2rem;
+
+    overflow: hidden;
+
+    border: 1px solid #E9E2E5;
+
+    border-radius: 1.25rem;
+
+    background: #FFFFFF;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.domain-card:hover {
+
+    transform: translateY(-5px);
+
+    border-color: rgba(90, 23, 110, 0.25);
+
+    box-shadow:
+        0 18px 50px rgba(36, 31, 35, 0.08);
+}
+
+
+.domain-number {
+
+    position: absolute;
+
+    top: 1.5rem;
+    right: 1.5rem;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 0.75rem;
+
+    font-weight: 700;
+
+    color: #B9AFB4;
+}
+
+
+.domain-symbol {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    height: 3.5rem;
+    width: 3.5rem;
+
+    border-radius: 1rem;
+
+    font-size: 1.3rem;
+
+    font-weight: 700;
+}
+
+.domain-symbol.purple {
+
+    background: #EEE4F1;
+
+    color: #5A176E;
+}
+
+.domain-symbol.crimson {
+
+    background: #F7E5EB;
+
+    color: #A5003B;
+}
+
+.domain-symbol.gold {
+
+    background: #FAF2D6;
+
+    color: #A97D12;
+}
+
+.domain-symbol.brown {
+
+    background: #F1EAE6;
+
+    color: #795548;
+}
+
+
+.domain-title {
+
+    margin-top: 1.75rem;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    color: #241F23;
+
+    font-size: 1.35rem;
+
+    font-weight: 700;
+}
+
+
+.domain-text {
+
+    margin-top: 0.75rem;
+
+    max-width: 30rem;
+
+    color: #6B6368;
+
+    font-size: 0.9rem;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer-heading {
+
+    margin-bottom: 1rem;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    color: #241F23;
+
+    font-size: 0.95rem;
+
+    font-weight: 700;
+}
+
+
+.footer-link {
+
+    color: #6B6368;
+
+    font-size: 0.875rem;
+
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: #5A176E;
+}
+
+
+/* =========================================================
+   SELECTION
+========================================================= */
+
+::selection {
+
+    background: #5A176E;
+
+    color: #FFFFFF;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background: #FCFAF7;
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: #C7B8CC;
+
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5A176E;
+}
