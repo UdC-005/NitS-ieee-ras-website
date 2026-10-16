@@ -1,0 +1,576 @@
+/* Blogs page — uses the target IEEE RAS site's existing brand palette. */
+.blogs-page {
+    --blogs-purple: #5A176E;
+    --blogs-purple-dark: #431052;
+    --blogs-crimson: #A5003B;
+    --blogs-gold: #D7A928;
+    --blogs-cream: #FCFAF7;
+    --blogs-paper: #FFFFFF;
+    --blogs-ink: #241F23;
+    --blogs-muted: #6B6368;
+    --blogs-border: #E9E2E5;
+    background: var(--blogs-cream);
+    color: var(--blogs-ink);
+}
+
+.blogs-main {
+    padding: 8.5rem 0 5.5rem;
+    background:
+            radial-gradient(circle at 8% 8%, rgba(90, 23, 110, 0.055), transparent 28rem),
+            radial-gradient(circle at 95% 20%, rgba(165, 0, 59, 0.045), transparent 26rem),
+            var(--blogs-cream);
+}
+
+.blogs-container {
+    width: min(100% - 2.5rem, 1200px);
+    margin-inline: auto;
+}
+
+.blogs-hero {
+    max-width: 850px;
+    margin: 0 auto 3.5rem;
+    text-align: center;
+}
+
+.blogs-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid rgba(90, 23, 110, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.78);
+    color: var(--blogs-purple);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.blogs-hero h1 {
+    margin: 0;
+    font-family: "Space Grotesk", sans-serif;
+    color: var(--blogs-ink);
+    font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.055em;
+    line-height: 1.08;
+}
+
+.blogs-hero h1 span {
+    color: var(--blogs-crimson);
+    font-style: italic;
+}
+
+.blogs-hero p {
+    max-width: 600px;
+    margin: 1.25rem auto 0;
+    color: var(--blogs-muted);
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.blogs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+}
+
+.blog-featured {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    overflow: hidden;
+    border: 1px solid var(--blogs-border);
+    border-radius: 1.4rem;
+    background: var(--blogs-paper);
+    box-shadow: 0 10px 35px rgba(36, 31, 35, 0.045);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.blog-featured:hover {
+    transform: translateY(-3px);
+    border-color: rgba(90, 23, 110, 0.25);
+    box-shadow: 0 22px 48px rgba(36, 31, 35, 0.09);
+}
+
+.blog-featured-image,
+.blog-card-image {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background: #EEE4F1;
+}
+
+.blog-featured-image {
+    min-height: 340px;
+}
+
+.blog-featured-image img,
+.blog-card-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.55s ease;
+}
+
+.blog-featured:hover .blog-featured-image img,
+.blog-card:hover .blog-card-image img {
+    transform: scale(1.045);
+}
+
+.blog-featured-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.blog-category {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: var(--blogs-crimson);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.blog-featured-content h2,
+.blog-card-content h2 {
+    margin: 0;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.25;
+}
+
+.blog-featured-content h2 {
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+}
+
+.blog-featured-content h2 a,
+.blog-card-content h2 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.blog-featured-content h2 a:hover,
+.blog-card-content h2 a:hover {
+    color: var(--blogs-purple);
+}
+
+.blog-featured-content > p {
+    margin: 1rem 0 1.5rem;
+    color: var(--blogs-muted);
+    font-size: 1rem;
+    line-height: 1.85;
+}
+
+.blog-featured-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 1.15rem;
+    border-top: 1px solid #F0EAEE;
+    color: var(--blogs-muted);
+    font-size: 0.8rem;
+}
+
+.blog-author {
+    color: var(--blogs-purple);
+    font-weight: 700;
+}
+
+.blog-read-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 1.2rem;
+    color: var(--blogs-purple);
+    font-size: 0.875rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.blog-read-link span {
+    color: var(--blogs-crimson);
+    transition: transform 0.2s ease;
+}
+
+.blog-read-link:hover span {
+    transform: translate(3px, -2px);
+}
+
+.blog-card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--blogs-border);
+    border-radius: 1.25rem;
+    background: var(--blogs-paper);
+    box-shadow: 0 8px 26px rgba(36, 31, 35, 0.035);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(90, 23, 110, 0.22);
+    box-shadow: 0 18px 40px rgba(36, 31, 35, 0.08);
+}
+
+.blog-card-image {
+    height: 220px;
+}
+
+.blog-card-category {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    max-width: calc(100% - 2rem);
+    padding: 0.45rem 0.7rem;
+    overflow: hidden;
+    border: 1px solid rgba(90, 23, 110, 0.1);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.94);
+    color: var(--blogs-purple);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.blog-card-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+}
+
+.blog-card-content h2 {
+    font-size: 1.25rem;
+}
+
+.blog-card-content > p {
+    margin: 0.8rem 0 1.1rem;
+    color: var(--blogs-muted);
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.blog-card-content .blog-read-link {
+    margin-top: auto;
+    padding-top: 0.75rem;
+}
+
+.blogs-empty {
+    padding: 3rem 1rem;
+    color: var(--blogs-muted);
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .blogs-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .blog-featured {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-featured-image {
+        min-height: 280px;
+        max-height: 360px;
+    }
+}
+
+@media (max-width: 640px) {
+    .blogs-main {
+        padding: 7.5rem 0 4rem;
+    }
+
+    .blogs-container {
+        width: min(100% - 2rem, 1200px);
+    }
+
+    .blogs-hero {
+        margin-bottom: 2.25rem;
+    }
+
+    .blogs-desktop-break {
+        display: none;
+    }
+
+    .blogs-grid {
+        grid-template-columns: 1fr;
+        gap: 1.15rem;
+    }
+
+    .blog-featured-image {
+        min-height: 230px;
+    }
+
+    .blog-featured-content {
+        padding: 1.5rem;
+    }
+
+    .blog-card-image {
+        height: 210px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .blog-featured,
+    .blog-card,
+    .blog-featured-image img,
+    .blog-card-image img,
+    .blog-read-link span {
+        transition: none;
+    }
+}
+
+/* Live IEEE RAS news feed additions */
+.blogs-source-link {
+    display: inline-flex;
+    margin-top: 1.1rem;
+    color: var(--blogs-purple);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.blogs-source-link:hover {
+    color: var(--blogs-crimson);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.blogs-feed-note {
+    margin: 0 auto 1.5rem;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid rgba(215, 169, 40, 0.45);
+    border-radius: 0.9rem;
+    background: #FAF2D6;
+    color: #604B14;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.blog-image-fallback {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-height: 210px;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1.75rem;
+    background:
+            radial-gradient(circle at 75% 25%, rgba(215, 169, 40, 0.24), transparent 30%),
+            linear-gradient(135deg, #EEE4F1, #F7E5EB 58%, #FAF2D6);
+    color: var(--blogs-purple);
+}
+
+.blog-image-fallback > span {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+}
+
+.blog-image-fallback strong {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+}
+
+.blog-card-date {
+    margin: 0 0 0.6rem;
+    color: var(--blogs-crimson);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+/* Search and category filters */
+.blogs-tools {
+    margin: 0 0 1.75rem;
+    padding: 1.25rem;
+    border: 1px solid var(--blogs-border);
+    border-radius: 1.1rem;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 8px 26px rgba(36, 31, 35, 0.035);
+}
+
+.blogs-search-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    min-height: 3.25rem;
+    padding: 0 1rem;
+    border: 1px solid var(--blogs-border);
+    border-radius: 0.85rem;
+    background: #FCFAF7;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blogs-search-wrap:focus-within {
+    border-color: rgba(90, 23, 110, 0.55);
+    box-shadow: 0 0 0 3px rgba(90, 23, 110, 0.08);
+}
+
+.blogs-search-icon {
+    color: var(--blogs-purple);
+    font-size: 1.7rem;
+    line-height: 1;
+}
+
+.blogs-search-wrap input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--blogs-ink);
+    font: inherit;
+    font-size: 0.95rem;
+}
+
+.blogs-search-wrap input::placeholder {
+    color: #968D93;
+}
+
+.blogs-clear-search {
+    display: inline-grid;
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: #EEE4F1;
+    color: var(--blogs-purple);
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+
+.blogs-filter-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 1.25rem 0 0.7rem;
+    color: var(--blogs-ink);
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.blogs-result-count {
+    color: var(--blogs-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.blogs-category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.blogs-filter-chip {
+    padding: 0.52rem 0.8rem;
+    border: 1px solid var(--blogs-border);
+    border-radius: 999px;
+    background: white;
+    color: var(--blogs-muted);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.76rem;
+    font-weight: 700;
+    transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.blogs-filter-chip:hover {
+    border-color: rgba(90, 23, 110, 0.35);
+    color: var(--blogs-purple);
+}
+
+.blogs-filter-chip.is-active {
+    border-color: var(--blogs-purple);
+    background: var(--blogs-purple);
+    color: white;
+}
+
+.blogs-filter-status {
+    min-height: 0;
+    margin: -0.65rem 0 1rem;
+    color: var(--blogs-muted);
+    font-size: 0.82rem;
+}
+
+.blogs-filter-status:empty {
+    display: none;
+}
+
+.blogs-empty {
+    padding: 3rem 1rem;
+    border: 1px dashed var(--blogs-border);
+    border-radius: 1.1rem;
+    background: rgba(255, 255, 255, 0.65);
+    color: var(--blogs-muted);
+    text-align: center;
+}
+
+.blogs-empty h2 {
+    margin: 0 0 0.5rem;
+    color: var(--blogs-ink);
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.4rem;
+}
+
+.blogs-empty p {
+    margin: 0.5rem 0 1rem;
+}
+
+.blogs-reset-button {
+    padding: 0.65rem 1rem;
+    border: 0;
+    border-radius: 0.7rem;
+    background: var(--blogs-purple);
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.blogs-reset-button:hover {
+    background: var(--blogs-purple-dark);
+}
+
+/* The browser's default hidden rule is normally overridden by card display styles. */
+[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 640px) {
+    .blogs-tools {
+        padding: 0.9rem;
+    }
+
+    .blogs-filter-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+}
