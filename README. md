@@ -1,0 +1,203 @@
+# IEEE RAS NIT Silchar Website
+
+The official website project for the **IEEE Robotics and Automation Society (RAS), NIT Silchar Student Branch**. The application provides the website's public pages and a basic account registration and login flow.
+
+Repository: [UdC-005/NitS-ieee-ras-website](https://github.com/UdC-005/NitS-ieee-ras-website)
+
+## Tech Stack
+
+- **Backend:** Python, FastAPI, Uvicorn
+- **Templating:** Jinja2
+- **Frontend:** HTML, CSS, JavaScript, with the site's compiled Tailwind CSS styles
+- **Database access:** SQLAlchemy
+- **Database:** Any SQLAlchemy-supported database configured through `DATABASE_URL` (PostgreSQL is suitable for deployment; SQLite can be used for local development)
+- **Authentication:** bcrypt password hashing and JWT access tokens
+
+## Features
+
+- Public website pages such as Home, About, and Projects
+- Members and Learning pages when those page modules are included in the current working branch
+- Blog/news page with an HTML-scraping integration for IEEE RAS news, when the scraper module is configured
+- User registration using full name, Scholar ID, email, and password
+- Login and logout routes
+- Password hashing and JWT-based access-token cookie
+- Static asset serving for stylesheets, JavaScript, and images
+- Health-check endpoint at `/health`
+
+> **Note:** The members, learning, blog/news, and page-loader additions may exist only in a newer local branch or working copy. If one of these pages is absent after cloning the default branch, check that the corresponding feature files and route registrations have been committed to your branch.
+
+## Project Structure
+
+```text
+NitS-ieee-ras-website/
+├── app/
+│   ├── main.py                 # FastAPI application and router registration
+│   ├── database.py             # SQLAlchemy engine and database session
+│   ├── models.py               # Database models
+│   ├── auth.py                 # Password hashing and JWT helpers
+│   ├── routes/
+│   │   ├── pages.py            # Public page routes
+│   │   └── auth.py             # Registration, login, and logout endpoints
+│   ├── templates/              # Jinja2 HTML templates
+│   └── static/
+│       ├── css/                # Stylesheets
+│       ├── js/                 # JavaScript
+│       └── images/             # Images and other static assets
+├── requirements.txt
+├── .gitignore
+└── README.md
+```
+
+Additional templates, routes, or scraper modules may be present in feature branches.
+
+## Requirements
+
+- Python 3.10 or later (use a version compatible with the dependencies in `requirements.txt`)
+- Git
+- A database URL for a database supported by SQLAlchemy
+
+## Local Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/UdC-005/NitS-ieee-ras-website.git
+cd NitS-ieee-ras-website
+```
+
+### 2. Create and activate a virtual environment
+
+**Windows PowerShell:**
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+If PowerShell blocks activation, you can run the environment's Python directly in later commands instead of changing your execution policy.
+
+**macOS/Linux:**
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+### 4. Configure environment variables
+
+Create a `.env` file in the repository root. The database configuration and JWT helper read these values from the environment.
+
+For local SQLite development, a starting configuration is:
+
+```dotenv
+DATABASE_URL=sqlite:///./ras.db
+SECRET_KEY=replace-this-with-a-long-random-secret
+ACCESS_TOKEN_EXPIRE_MINUTES=60
+```
+
+For PostgreSQL, use your database's connection URL instead, for example:
+
+```dotenv
+DATABASE_URL=postgresql+psycopg://USERNAME:PASSWORD@HOST:5432/DATABASE_NAME
+SECRET_KEY=replace-this-with-a-long-random-secret
+ACCESS_TOKEN_EXPIRE_MINUTES=60
+```
+
+Replace the example values with your own. Keep `.env` out of version control; it is covered by `.gitignore`. Never commit production credentials or a real secret key.
+
+### 5. Start the development server
+
+Run the command from the repository root:
+
+```powershell
+python -m uvicorn app.main:app --reload
+```
+
+Or, on Windows, run it directly through the virtual environment:
+
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload
+```
+
+Open **http://127.0.0.1:8000** in your browser.
+
+## Routes and API Endpoints
+
+| Path | Method | Purpose |
+|---|---|---|
+| `/` | GET | Home page |
+| `/about` | GET | About page |
+| `/projects` | GET | Projects page |
+| `/login` | GET | Login page |
+| `/register` | GET | Registration page |
+| `/api/auth/register` | POST | Register an account |
+| `/api/auth/login` | POST | Log in |
+| `/api/auth/logout` | POST | Log out |
+| `/health` | GET | Health check; returns `{"status":"ok"}` |
+
+The working branch may add routes such as `/members`, `/learning`, and `/blogs`. Check `app/routes/` for the routes currently registered in your checkout.
+
+FastAPI's interactive API documentation is available at **http://127.0.0.1:8000/docs** while the server is running.
+
+## Authentication Notes
+
+- Registration expects a full name, Scholar ID, email, password, and password confirmation.
+- The registration handler checks that the passwords match, enforces a minimum length of eight characters, and rejects an email or Scholar ID already in use.
+- Passwords are stored as bcrypt hashes, not as plain text.
+- Login issues a JWT access token in an HTTP-only cookie.
+- The application currently configures that cookie with `secure=False`; use HTTPS and set secure cookie settings before deploying to production.
+- Configure a strong, private `SECRET_KEY` for every deployed environment.
+
+## IEEE RAS News Scraping
+
+If the blog/news feature is installed, it retrieves article information by parsing the IEEE RAS website's HTML. This approach depends on the source site's current HTML structure and selectors, so the scraper may need maintenance if IEEE RAS changes its pages. A scrape failure can result in no news items being returned; review the application logs when troubleshooting.
+
+## Troubleshooting
+
+**The server fails during startup**
+
+- Confirm that `.env` exists in the repository root and contains a valid `DATABASE_URL` and `SECRET_KEY`.
+- Confirm the database is reachable and that its driver is installed.
+- Check the terminal for the specific import or database error.
+
+**A stylesheet, JavaScript file, or image returns 404**
+
+- Confirm the file exists under `app/static/`.
+- Check that the template uses the correct static path, for example `url_for('static', path='css/style.css')`.
+- Hard-refresh the browser with `Ctrl + F5` after changing static files.
+
+**The loader does not appear**
+
+- Ensure the loader HTML element with `id="page-loader"` is included in the rendered page.
+- Check that `app/static/css/loader.css` and `app/static/js/loader.js` load successfully.
+- Pages that do not extend the shared base template may need the loader markup and script included separately.
+
+**The news page shows no articles**
+
+- Check the server logs for scraper errors.
+- Confirm that IEEE RAS's page is reachable and that the scraper selectors still match its current HTML.
+
+## Development Notes
+
+- Run Uvicorn from the repository root so that the configured relative paths to templates and static files resolve correctly.
+- Keep secrets in environment variables rather than source code.
+- When adding a new page, create its Jinja2 template, add a route, and add its navigation link and styles as required.
+- When adding a new router, include it in `app/main.py`.
+
+## Contributing
+
+1. Create a feature branch.
+2. Make the change and test the affected page or endpoint locally.
+3. Keep configuration secrets out of commits.
+4. Open a pull request with a summary of the change and any setup steps required.
+
+## License
+
+Add the project's chosen license here before redistributing or reusing the code. Until a license is added, do not assume that the repository grants permissions beyond the rights provided by applicable law.
