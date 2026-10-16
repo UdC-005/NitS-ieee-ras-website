@@ -1,0 +1,30 @@
+<div
+        id="page-loader"
+        class="page-loader"
+        role="status"
+        aria-live="off"
+        aria-label="Loading IEEE RAS NIT Silchar website"
+>
+    <div class="loader-content">
+        <div class="loader-mark" aria-hidden="true">
+            <span class="loader-mark__orbit loader-mark__orbit--outer"></span>
+            <span class="loader-mark__orbit loader-mark__orbit--inner"></span>
+            <img
+                    class="loader-logo"
+                    src="{{ url_for('static', path='images/logo2.webp') }}"
+                    alt=""
+            >
+        </div>
+
+        <p class="loader-brand">IEEE <span>RAS</span></p>
+        <p class="loader-campus">NIT SILCHAR</p>
+        <p class="loader-message" data-loader-message>Preparing your experience</p>
+        <div class="loader-progress" aria-hidden="true">
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<noscript>
+    <style>#page-loader { display: none !important; }</style>
+</noscript>

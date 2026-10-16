@@ -1,0 +1,154 @@
+/* IEEE RAS NIT Silchar — simple, theme-matched page loader */
+:root {
+    --ras-loader-purple: #5A176E;
+    --ras-loader-crimson: #A5003B;
+    --ras-loader-gold: #D7A928;
+    --ras-loader-cream: #FCFAF7;
+    --ras-loader-muted: #786E76;
+}
+
+.page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background:
+            radial-gradient(circle at 50% 43%, rgba(90, 23, 110, .055), transparent 28rem),
+            var(--ras-loader-cream);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 320ms ease, visibility 320ms ease;
+}
+
+.page-loader.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.page-loader[hidden] { display: none; }
+html.loader-active,
+html.loader-active body { overflow: hidden; }
+
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    text-align: center;
+    animation: loader-content-in 500ms cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.loader-mark {
+    position: relative;
+    display: grid;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 24px;
+    place-items: center;
+}
+
+.loader-mark__orbit {
+    position: absolute;
+    inset: 2px;
+    border: 1.5px solid rgba(90, 23, 110, .15);
+    border-radius: 50%;
+}
+
+.loader-mark__orbit--outer {
+    border-top-color: var(--ras-loader-gold);
+    border-right-color: var(--ras-loader-crimson);
+    animation: loader-spin 1.8s linear infinite;
+}
+
+.loader-mark__orbit--inner {
+    inset: 9px;
+    border-color: rgba(90, 23, 110, .13);
+    border-bottom-color: var(--ras-loader-purple);
+    animation: loader-spin-reverse 2.6s linear infinite;
+}
+
+.loader-logo {
+    display: block;
+    width: 61px;
+    height: 61px;
+    object-fit: contain;
+}
+
+.loader-brand {
+    margin: 0;
+    color: var(--ras-loader-purple);
+    font-family: "Space Grotesk", "DM Sans", sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: -.045em;
+    line-height: 1.1;
+}
+
+.loader-brand span { color: var(--ras-loader-crimson); }
+
+.loader-campus {
+    margin: 7px 0 0;
+    color: var(--ras-loader-muted);
+    font-family: "DM Sans", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .24em;
+}
+
+.loader-message {
+    min-height: 18px;
+    margin: 23px 0 13px;
+    color: var(--ras-loader-muted);
+    font-family: "DM Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .015em;
+    transition: opacity 140ms ease;
+}
+
+.loader-message.is-changing { opacity: 0; }
+
+.loader-progress {
+    width: 104px;
+    height: 3px;
+    overflow: hidden;
+    border-radius: 99px;
+    background: rgba(90, 23, 110, .12);
+}
+
+.loader-progress span {
+    display: block;
+    width: 42%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--ras-loader-purple), var(--ras-loader-crimson), var(--ras-loader-gold));
+    animation: loader-progress 1.25s ease-in-out infinite;
+}
+
+@keyframes loader-spin { to { transform: rotate(360deg); } }
+@keyframes loader-spin-reverse { to { transform: rotate(-360deg); } }
+@keyframes loader-progress {
+    0% { transform: translateX(-115%); }
+    100% { transform: translateX(255%); }
+}
+@keyframes loader-content-in {
+    from { opacity: 0; transform: translateY(7px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+    .loader-mark { width: 88px; height: 88px; margin-bottom: 21px; }
+    .loader-logo { width: 54px; height: 54px; }
+    .loader-brand { font-size: 23px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loader-content,
+    .loader-mark__orbit,
+    .loader-progress span { animation: none !important; }
+    .page-loader { transition-duration: 160ms; }
+}

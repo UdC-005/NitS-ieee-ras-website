@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}
+Learning Resource Hub | IEEE RAS NIT Silchar
+{% endblock %}
+
+{% block head %}
+<link
+        rel="stylesheet"
+        href="{{ url_for('static', path='css/learning.css') }}"
+>
+{% endblock %}
+
+{% block content %}
+<div class="learning-page">
+    <main class="learning-main">
+        <section class="learning-panel" aria-labelledby="learning-title">
+            <div class="learning-glow learning-glow--top" aria-hidden="true"></div>
+            <div class="learning-glow learning-glow--bottom" aria-hidden="true"></div>
+
+            <div class="learning-status">
+                <span class="learning-status-dot" aria-hidden="true"></span>
+                <span>Module Under Construction</span>
+            </div>
+
+            <p class="learning-eyebrow">IEEE RAS · NIT Silchar</p>
+
+            <h1 id="learning-title" class="learning-title">
+                Learning<br>
+                <span>Resource Hub</span>
+            </h1>
+
+            <p class="learning-intro">
+                The IEEE RAS NIT Silchar learning repository is being curated
+                with tutorials, project references and research materials for
+                our robotics and automation community.
+            </p>
+
+            <section class="learning-resource" aria-labelledby="resource-title">
+                <p class="learning-resource-label">Immediate Resources</p>
+                <h2 id="resource-title">Keep learning with IEEE RAS</h2>
+                <p>
+                    Explore educational modules and technical resources from
+                    the parent society while our local resource library is being prepared.
+                </p>
+                <a
+                        class="learning-cta"
+                        href="https://www.ieee-ras.org/ras-university/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                >
+                    Visit RAS University
+                    <span aria-hidden="true">↗</span>
+                </a>
+            </section>
+
+            <div class="learning-resource-grid" aria-label="Planned learning resources">
+                <article class="learning-resource-tile">
+                    <span class="learning-tile-icon" aria-hidden="true">📚</span>
+                    <h3>Local Tutorials</h3>
+                    <p>Curated guides for core concepts and tools.</p>
+                </article>
+                <article class="learning-resource-tile">
+                    <span class="learning-tile-icon" aria-hidden="true">📑</span>
+                    <h3>Member Projects</h3>
+                    <p>Practical project references from our community.</p>
+                </article>
+                <article class="learning-resource-tile">
+                    <span class="learning-tile-icon" aria-hidden="true">🛠️</span>
+                    <h3>Workshop Labs</h3>
+                    <p>Hands-on materials from technical sessions.</p>
+                </article>
+            </div>
+
+            <p class="learning-coming-soon">Coming Soon to NIT Silchar</p>
+        </section>
+    </main>
+</div>
+{% endblock %}
