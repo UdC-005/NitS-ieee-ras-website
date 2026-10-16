@@ -1,0 +1,268 @@
+/* Members page: layout inspired by RasWebsite; colors and fonts from this site. */
+.members-page {
+    overflow: hidden;
+    background: #FCFAF7;
+    color: #241F23;
+}
+
+.members-container {
+    width: min(100% - 2.5rem, 1200px);
+    margin-inline: auto;
+}
+
+/* Hero */
+.members-hero {
+    position: relative;
+    isolation: isolate;
+    padding: 9rem 0 5rem;
+    text-align: center;
+    background:
+            radial-gradient(circle at 15% 25%, rgba(90, 23, 110, .09), transparent 35%),
+            radial-gradient(circle at 85% 75%, rgba(165, 0, 59, .07), transparent 35%),
+            linear-gradient(135deg, #FCFAF7, #F7F3F0 60%, #EEE4F1);
+}
+
+.members-hero::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    content: "";
+    opacity: .45;
+    background-image:
+            linear-gradient(rgba(90, 23, 110, .04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(90, 23, 110, .04) 1px, transparent 1px);
+    background-size: 36px 36px;
+    mask-image: linear-gradient(to bottom, black, transparent 95%);
+}
+
+.members-kicker {
+    display: inline-block;
+    margin: 0 0 1.5rem;
+    padding: .55rem 1rem;
+    border: 1px solid rgba(90, 23, 110, .15);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .78);
+    color: #5A176E;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+
+.members-hero h1 {
+    margin: 0;
+    color: #241F23;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -.055em;
+}
+
+.members-hero h1 span { color: #A5003B; }
+
+.members-intro {
+    max-width: 540px;
+    margin: 1.5rem auto 2rem;
+    color: #6B6368;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.members-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .85rem 1.25rem;
+    border-radius: .8rem;
+    background: #5A176E;
+    color: #FFF;
+    font-size: .9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.members-cta:hover {
+    transform: translateY(-2px);
+    background: #431052;
+}
+
+/* Sections and headings */
+.members-roster { padding: 1rem 0 5rem; }
+.members-section { padding-top: 4rem; scroll-margin-top: 100px; }
+.members-section-heading { margin-bottom: 2.5rem; text-align: center; }
+
+.members-section-label {
+    margin: 0 0 .7rem;
+    color: #A5003B;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+}
+
+.members-section-heading h2 {
+    margin: 0;
+    color: #241F23;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -.04em;
+}
+
+.members-heading-decoration {
+    width: 75px;
+    height: 3px;
+    margin: 1.1rem auto 0;
+    border-radius: 10px;
+    background: linear-gradient(to right, #5A176E, #A5003B, #D7A928);
+}
+
+/* Responsive card grid */
+.members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    align-items: stretch;
+    gap: 1.5rem;
+}
+
+.members-grid--leadership {
+    max-width: 950px;
+    margin-inline: auto;
+}
+
+/* Cards */
+.member-card {
+    position: relative;
+    min-width: 0;
+    padding: 2rem 1.25rem 1.6rem;
+    overflow: hidden;
+    border: 1px solid #E9E2E5;
+    border-radius: 1.4rem;
+    background: #FFF;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(36, 31, 35, .035);
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.member-card::before {
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 3px;
+    border-radius: 0 0 10px 10px;
+    background: linear-gradient(to right, #5A176E, #A5003B, #D7A928);
+    content: "";
+    opacity: 0;
+    transition: opacity .25s ease;
+}
+
+.member-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(90, 23, 110, .2);
+    box-shadow: 0 18px 45px rgba(36, 31, 35, .09);
+}
+.member-card:hover::before { opacity: 1; }
+
+/* Portrait and initials fallback */
+.member-photo {
+    display: grid;
+    width: 124px;
+    height: 124px;
+    margin: 0 auto 1.5rem;
+    overflow: hidden;
+    place-items: center;
+    border: 4px solid #FFF;
+    border-radius: 50%;
+    background: #EEE4F1;
+    box-shadow: 0 0 0 2px rgba(90, 23, 110, .18);
+    transition: box-shadow .25s ease;
+}
+
+.member-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: filter .35s ease;
+}
+
+.member-card:hover .member-photo { box-shadow: 0 0 0 3px #D7A928; }
+.member-card:hover .member-photo img { filter: grayscale(0%); }
+
+.member-initials {
+    color: #5A176E;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.member-info h3 {
+    margin: 0;
+    overflow-wrap: anywhere;
+    color: #241F23;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.12rem;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+.member-role {
+    margin: .5rem 0 0;
+    color: #A5003B;
+    font-size: .73rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    line-height: 1.6;
+    text-transform: uppercase;
+}
+
+/* Social links */
+.member-socials {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .6rem;
+    margin-top: 1.4rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid #F0EAEE;
+}
+
+.member-social {
+    display: inline-grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 1px solid #E9E2E5;
+    border-radius: 10px;
+    background: #FCFAF7;
+    color: #5A176E;
+    font-size: .75rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color .2s ease, background .2s ease, border-color .2s ease;
+}
+
+.member-social:hover {
+    border-color: #5A176E;
+    background: #5A176E;
+    color: #FFF;
+}
+
+.members-empty { padding: 3rem 0; color: #6B6368; text-align: center; }
+
+@media (max-width: 640px) {
+    .members-hero { padding: 7.5rem 0 4rem; }
+    .members-container { width: min(100% - 2rem, 1200px); }
+    .members-section { padding-top: 3rem; }
+    .members-section-heading { margin-bottom: 1.75rem; }
+    .member-card { padding: 1.75rem 1rem 1.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .member-card, .member-photo img, .member-social, .members-cta { transition: none; }
+    .member-card:hover { transform: none; }
+}
