@@ -83,3 +83,10 @@ def blogs_page(request: Request):
             "news_error": news_error,
         },
     )
+@router.get("/learning")
+def learning_page(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="learning.html",
+        context={},
+    )
