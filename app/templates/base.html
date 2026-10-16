@@ -24,7 +24,10 @@
         rel="stylesheet"
         href="{{ url_for('static', path='css/style.css') }}"
     >
-
+    <link
+            rel="stylesheet"
+            href="{{ url_for('static', path='css/loader.css') }}"
+    >
     <!-- Google Font -->
     <link
         rel="preconnect"
@@ -46,7 +49,8 @@
 </head>
 
 <body class="bg-ras-cream text-ras-ink antialiased">
-
+{% include "partials/page_loader.html" %}
+<script src="{{ url_for('static', path='js/loader.js') }}"></script>
     <!-- =========================
          NAVBAR
     ========================== -->
