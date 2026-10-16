@@ -3,9 +3,18 @@ from fastapi.templating import Jinja2Templates
 import json
 from pathlib import Path
 
+from ..services.ieee_ras_news import fetch_ieee_ras_news
+
+
 router = APIRouter()
 
 templates = Jinja2Templates(directory="app/templates")
+
+MEMBERS_FILE = (
+    Path(__file__).resolve().parents[1]
+    / "data"
+    / "members.json"
+)
 
 
 @router.get("/")
@@ -50,11 +59,6 @@ def register_page(request: Request):
         context={}
     )
 
-MEMBERS_FILE = (
-    Path(__file__).resolve().parents[1]
-    / "data"
-    / "members.json"
-)
 @router.get("/members")
 def members_page(request: Request):
     with MEMBERS_FILE.open("r", encoding="utf-8") as file:
@@ -64,4 +68,18 @@ def members_page(request: Request):
         request=request,
         name="members.html",
         context={"members": members},
+    )
+
+
+@router.get("/blogs")
+def blogs_page(request: Request):
+    posts, news_error = fetch_ieee_ras_news()
+
+    return templates.TemplateResponse(
+        request=request,
+        name="blogs.html",
+        context={
+            "posts": posts,
+            "news_error": news_error,
+        },
     )
