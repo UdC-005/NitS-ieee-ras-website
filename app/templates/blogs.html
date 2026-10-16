@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}IEEE RAS News | IEEE RAS NIT Silchar{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/blogs.css') }}">
+<script src="{{ url_for('static', path='js/blogs.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="blogs-page">
+  <main class="blogs-main">
+    <div class="blogs-container">
+      <header class="blogs-hero">
+        <span class="blogs-eyebrow">IEEE RAS · Latest News</span>
+        <h1>Robotics news<br class="blogs-desktop-break"><span>from IEEE RAS.</span></h1>
+        <p>Explore announcements, research stories, opportunities and updates from the IEEE Robotics and Automation Society.</p>
+        <a class="blogs-source-link" href="https://www.ieee-ras.org/news/" target="_blank" rel="noopener noreferrer">Visit the official IEEE RAS news page ↗</a>
+      </header>
+
+      {% if news_error %}
+      <p class="blogs-feed-note" role="status">{{ news_error }}</p>
+      {% endif %}
+
+      {% if posts %}
+      <section class="blogs-tools" aria-label="Search and filter news">
+        <label class="blogs-search-wrap" for="blogs-search">
+          <span class="blogs-search-icon" aria-hidden="true">⌕</span>
+          <input id="blogs-search" type="search" placeholder="Search news by title or keyword…" autocomplete="off">
+          <button id="blogs-clear-search" type="button" class="blogs-clear-search" aria-label="Clear search" hidden>×</button>
+        </label>
+        <div class="blogs-filter-heading">
+          <span>Browse by category</span>
+          <span id="blogs-result-count" class="blogs-result-count" aria-live="polite">{{ posts|length }} articles</span>
+        </div>
+        <div id="blogs-category-filters" class="blogs-category-filters" role="group" aria-label="News categories">
+          <button type="button" class="blogs-filter-chip is-active" data-category-filter="all" aria-pressed="true">All news</button>
+          {% for category in categories %}
+          <button type="button" class="blogs-filter-chip" data-category-filter="{{ category|lower }}" aria-pressed="false">{{ category }}</button>
+          {% endfor %}
+        </div>
+      </section>
+
+      <p id="blogs-filter-status" class="blogs-filter-status" aria-live="polite"></p>
+
+      {% set featured = posts[0] %}
+      {% set others = posts[1:] %}
+      <section class="blogs-grid" id="blog-posts" aria-label="Latest IEEE RAS news">
+        <article class="blog-featured" data-news-card data-title="{{ featured.title|lower }}" data-description="{{ featured.description|lower }}" data-categories="{{ featured.categories|join('|')|lower }}" data-published="{{ featured.published|lower }}">
+          <a class="blog-featured-image" href="{{ featured.href }}" target="_blank" rel="noopener noreferrer" aria-label="Read {{ featured.title }}">
+            {% if featured.image %}<img src="{{ featured.image }}" alt="Image for {{ featured.title }}" loading="eager" referrerpolicy="no-referrer">{% else %}<span class="blog-image-fallback" aria-hidden="true"><span>IEEE RAS</span><strong>Robotics<br>&amp; Automation</strong></span>{% endif %}
+          </a>
+          <div class="blog-featured-content">
+            <span class="blog-category">{{ featured.category }}</span>
+            <h2><a href="{{ featured.href }}" target="_blank" rel="noopener noreferrer">{{ featured.title }}</a></h2>
+            <p>{{ featured.description }}</p>
+            <div class="blog-featured-meta">
+              <span>{% if featured.published %}{{ featured.published }}{% else %}Latest news{% endif %}</span>
+              <span class="blog-author">IEEE RAS</span>
+            </div>
+            <a class="blog-read-link" href="{{ featured.href }}" target="_blank" rel="noopener noreferrer">Read on IEEE RAS <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+
+        {% for post in others %}
+        <article class="blog-card" data-news-card data-title="{{ post.title|lower }}" data-description="{{ post.description|lower }}" data-categories="{{ post.categories|join('|')|lower }}" data-published="{{ post.published|lower }}">
+          <a class="blog-card-image" href="{{ post.href }}" target="_blank" rel="noopener noreferrer" aria-label="Read {{ post.title }}">
+            {% if post.image %}<img src="{{ post.image }}" alt="Image for {{ post.title }}" loading="lazy" referrerpolicy="no-referrer">{% else %}<span class="blog-image-fallback" aria-hidden="true"><span>IEEE RAS</span><strong>Robotics<br>&amp; Automation</strong></span>{% endif %}
+            <span class="blog-card-category">{{ post.category }}</span>
+          </a>
+          <div class="blog-card-content">
+            {% if post.published %}<p class="blog-card-date">{{ post.published }}</p>{% endif %}
+            <h2><a href="{{ post.href }}" target="_blank" rel="noopener noreferrer">{{ post.title }}</a></h2>
+            <p>{{ post.description }}</p>
+            <a class="blog-read-link" href="{{ post.href }}" target="_blank" rel="noopener noreferrer">Read article <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        {% endfor %}
+      </section>
+      <div id="blogs-no-results" class="blogs-empty" hidden>
+        <h2>No news matches your search</h2>
+        <p>Try a different keyword or choose another category.</p>
+        <button type="button" id="blogs-reset-filters" class="blogs-reset-button">Clear filters</button>
+      </div>
+      {% else %}
+      <div class="blogs-empty">
+        <p>We're unable to display the latest news right now.</p>
+        <a class="blogs-source-link" href="https://www.ieee-ras.org/news/" target="_blank" rel="noopener noreferrer">Read the news directly on IEEE RAS ↗</a>
+      </div>
+      {% endif %}
+    </div>
+  </main>
+</div>
+{% endblock %}

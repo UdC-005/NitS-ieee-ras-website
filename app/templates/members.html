@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Members | IEEE RAS NIT Silchar{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/members.css') }}">
+{% endblock %}
+
+{% block content %}
+{# Role grouping is presentation logic, so it lives in this template. #}
+{% set sections = [
+{"title": "Faculty Mentors", "roles": ["Faculty In-Charge"], "size": "leadership"},
+{"title": "The Board", "roles": ["Chairman", "Treasurer", "Vice Chairman"], "size": "leadership"},
+{"title": "Executive Core", "roles": ["General Secretary", "Research Head", "Academic & Research Secretary", "Head of Social Media", "Moderator"], "size": "regular"},
+{"title": "Junior Division", "roles": ["Member"], "size": "regular"}
+] %}
+
+<div class="members-page">
+    <section class="members-hero">
+        <div class="members-container">
+            <p class="members-kicker">IEEE RAS · NIT Silchar</p>
+            <h1>Meet the <span>Team</span></h1>
+            <p class="members-intro">The people building our robotics, automation and research community.</p>
+            <a class="members-cta" href="#team-roster">Explore the team <span aria-hidden="true">↓</span></a>
+        </div>
+    </section>
+
+    <div class="members-container members-roster" id="team-roster">
+        {% for section in sections %}
+        {% set section_members = members | selectattr('role', 'in', section.roles) | list %}
+        {% if section_members %}
+        <section class="members-section">
+            <header class="members-section-heading">
+                <p class="members-section-label">OUR PEOPLE</p>
+                <h2>{{ section.title }}</h2>
+                <div class="members-heading-decoration" aria-hidden="true"></div>
+            </header>
+
+            <div class="members-grid {% if section.size == 'leadership' %}members-grid--leadership{% endif %}">
+                {% for member in section_members %}
+                <article class="member-card">
+                    <div class="member-photo">
+                        {% if member.image %}
+                        {% set image_name = member.image | replace('/images/members/', '') %}
+                        <img
+                                src="{{ url_for('static', path='images/members/' ~ image_name) }}"
+                                alt="Portrait of {{ member.name }}"
+                                loading="lazy"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
+                        >
+                        {% set name_parts = member.name.split() %}
+                        <span class="member-initials" style="display:none" aria-label="Initials for {{ member.name }}">{{ name_parts[:2] | map('first') | join | upper }}</span>
+                        {% else %}
+                        {% set name_parts = member.name.split() %}
+                        <span class="member-initials" aria-label="Initials for {{ member.name }}">{{ name_parts[:2] | map('first') | join | upper }}</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="member-info">
+                        <h3>{{ member.name }}</h3>
+                        <p class="member-role">{{ member.role }}</p>
+
+                        <div class="member-socials" aria-label="Contact links for {{ member.name }}">
+                            {% if member.socials.linkedin and member.socials.linkedin != '#' %}
+                            <a class="member-social" href="{{ member.socials.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="{{ member.name }} on LinkedIn">in</a>
+                            {% endif %}
+                            {% if member.socials.github and member.socials.github != '#' %}
+                            <a class="member-social" href="{{ member.socials.github }}" target="_blank" rel="noopener noreferrer" aria-label="{{ member.name }} on GitHub">GH</a>
+                            {% endif %}
+                            {% if member.socials.facebook and member.socials.facebook != '#' %}
+                            <a class="member-social" href="{{ member.socials.facebook }}" target="_blank" rel="noopener noreferrer" aria-label="{{ member.name }} on Facebook">f</a>
+                            {% endif %}
+                            {% if member.socials.email %}
+                            <a class="member-social" href="mailto:{{ member.socials.email }}" aria-label="Email {{ member.name }}">@</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+        {% endfor %}
+
+        {% if not members %}
+        <p class="members-empty">Member information will be available soon.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
